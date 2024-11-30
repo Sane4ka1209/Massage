@@ -1,0 +1,28 @@
+@import "buttons.css";
+
+.navbar {
+    padding: 10px;
+    background-color: rgb(255, 168, 168);
+}
+
+html, body {
+    background: rgb(2,0,36);
+    background: linear-gradient(22deg, rgba(2,0,36,1) 0%, rgb(124, 11, 11) 0%, rgb(187, 50, 50) 100%);
+    padding: 10px;
+    height: 100vh;
+    margin: 0;
+}
+
+.text-info {
+    font-size: medium;
+    color: black;
+}
+
+.text-warn {
+    font-size: medium;
+    color: rgb(255, 123, 0);
+}
+
+.error-text {
+    color: rgb(148, 0, 0);
+}

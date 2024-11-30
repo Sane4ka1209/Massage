@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Мои посещения{% endblock %}
+
+{% block content %}
+<h1>Посещения</h1>
+{% table %}
+    {% thead 'Массажист' 'Стоимость, Р' 'Время и дата начала' 'Время и дата конца' '' %}
+    <tbody>
+        {% for visit in object_list %}
+        {% tr %}
+            {% td visit.master %}
+            {% td visit.all_price %}
+            {% td visit.start_time|format:'%d %m %Y / %H:%M' %}
+            {% td visit.end_time|format:'%d %m %Y / %H:%M' %}
+            {% td %}
+                <a href="{% url 'visits:detail' visit.id %}" class="btn-press">Подробнее</a>
+            {% endtd %}
+        {% endtr %}
+        {% empty %}
+            {% error_tag 'У вас пока нет посещений' %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

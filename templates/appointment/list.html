@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Мои записи{% endblock %}
+
+{% block content %}
+<h1>Записи</h1>
+{% table %}
+    {% thead 'Массажист' 'Стоимость, Р' 'Продолжительность, мин' 'Время и дата' '' %}
+    <tbody>
+        {% for appointment in object_list %}
+        {% tr %}
+            {% td appointment.master %}
+            {% td appointment.get_all_price %}
+            {% td appointment.get_all_duration %}
+            {% td appointment.start_time|format:'%d %m %Y / %H:%M' %}
+            {% td %}
+                <a href="{% url 'appointments:detail' appointment.id %}" class="btn-press">Подробнее</a>
+            {% endtd %}
+        {% endtr %}
+        {% empty %}
+            {% error_tag 'У вас пока нет записей' %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Запись создана{% endblock %}
+
+{% block content %}
+<h1>Запись успешно создана</h1>
+{% info_tag 'Массажист' object.master %}
+{% info_tag 'Общая продолжительность, мин' object.get_all_duration %}
+{% info_tag 'Общая стоимость, Р' object.get_all_price %}
+{% info_tag 'Дата и время' object.start_time|format:'%d %m %Y / %H:%M' %}
+<h2>Выбранные услуги</h2>
+{% table %}
+    {% thead 'Название' 'Цена, Р' 'Продолжительность, мин' 'Описание' %}
+    <tbody>
+        {% for i in object.get_services_with_duration %}
+        {% tr i.service.name i.service.price i.time i.service.description %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

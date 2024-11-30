@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Прейскурант{% endblock %}
+
+{% block content %}
+<h1>Прейскурант</h1>
+{% table %}
+{% thead 'Название' 'Цена, Р' 'Описание' %}
+<tbody>
+    {% for service in object_list %}
+    {% tr service.name service.price service.description %}
+    {% empty %}
+    {% error_tag 'К сожалению, на данный момент нет доступных услуг' %}
+    {% endfor %}
+</tbody>
+{% endtable %}
+{% endblock %}

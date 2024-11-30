@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Выбор услуг{% endblock %}
+
+{% block content %}
+<h1>Выберите услуги</h1>
+<a href="{% url 'appointments:select_master' %}" class="btn-light-shadow">Назад</a>
+<br><br>
+{% info_tag 'Массажист' appointment.get_master %}
+{% info_tag 'Общая продолжительность, мин' appointment.get_all_duration %}
+{% info_tag 'Общая стоимость, Р' appointment.get_all_price %}
+{% table %}
+    {% thead 'Название' 'Цена, Р' 'Продолжительность, мин' 'Описание' '' %}
+    <tbody>
+        {% for master_time in object_list %}
+        {% tr %}
+            {% td master_time.service.name %}
+            {% td master_time.service.price %}
+            {% td master_time.time %}
+            {% td master_time.service.description %}
+            {% td %}
+                {% if master_time.service in appointment.get_services %}
+                <form method="post" action="{% url 'appointments:remove_service' master_time.service.name %}">
+                    {% csrf_token %}
+                    {% button_submit 'Удалить' 'btn-press' %}
+                </form>
+                {% else %}
+                <form method="post" action="{% url 'appointments:add_service' master_time.service.name %}">
+                    {% csrf_token %}
+                    {% button_submit 'Добавить' 'btn-press' %}
+                </form>
+                {% endif %}
+            {% endtd %}
+        {% endtr %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% if appointment.get_services %}
+<a href="{% url 'appointments:select_date' %}" class="btn-light-shadow">Выбрать дату</a>
+{% endif %}
+{% endblock %}

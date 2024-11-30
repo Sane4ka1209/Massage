@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+<br>
+{% info_tag 'Массажист' object.master %}
+{% info_tag 'Общая продолжительность, мин' object.get_all_duration %}
+{% info_tag 'Общая стоимость, Р' object.get_all_price %}
+{% info_tag 'Дата и время' object.start_time|format:'%d %m %Y / %H:%M' %}
+<h2>Выбранные услуги</h2>
+{% table %}
+    {% thead 'Название' 'Цена, Р' 'Продолжительность, мин' 'Описание' %}
+    <tbody>
+        {% for i in object.get_services_with_duration %}
+        {% tr i.service.name i.service.price i.time i.service.description %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+<form method="post" action="{% url 'appointments:cancel' object.id %}">
+    {% csrf_token %}
+    {% button_submit 'Отменить' 'btn-light-shadow' %}
+</form>
+{% if object.can_be_confirmed %}
+<form method="post" action="{% url 'appointments:confirm' object.id %}">
+    {% csrf_token %}
+    {% button_submit 'Потвердить' 'btn-light-shadow' %}
+</form>
+{% endif %}
+{% endblock %}

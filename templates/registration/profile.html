@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}{{ user }}{% endblock %}
+
+{% block content %}
+<h1>Профиль</h1>
+{% info_tag 'Email' user %}
+{% info_tag 'Имя' user.first_name %}
+{% info_tag 'Фамилия' user.last_name %}
+<a href="{% url 'accounts:password_change' %}" class="btn-light-shadow">Сменить пароль</a>
+<a href="{% url 'accounts:settings' %}" class="btn-light-shadow">Настройки</a>
+{% endblock %}

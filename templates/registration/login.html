@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<h1>Вход</h1>
+<p>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% button_submit 'Войти' 'btn-light-shadow' %}
+    </form>
+</p>
+{% if error %}
+{% error_tag 'Неверный логин или пароль, попробуйте еще раз' %}
+{% endif %}
+<p>
+    <a href="{% url 'accounts:password_reset' %}" class="btn-light-shadow">Забыли пароль?</a>
+</p>
+{% endblock %}

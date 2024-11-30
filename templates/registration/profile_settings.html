@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Настройки{% endblock %}
+
+{% block content %}
+<h1>Настройки</h1>
+<form method="post">
+    {% bootstrap_form form %}
+    {% csrf_token %}
+    {% button_submit 'Сохранить' 'btn-light-shadow' %}
+</form>
+{% endblock %}

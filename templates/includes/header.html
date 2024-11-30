@@ -1,0 +1,47 @@
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+<nav class = 'navbar'>
+  <ul class = 'nav navbar'>
+    {% with request.resolver_match.view_name as view_name %}
+      <li class = 'nav-item'>
+        <a href = "{% url 'mainpage:main' %}" class = 'btn-up{% if view_name == "mainpage:main" %} btn-active{% endif %}'>Главная</a>
+      </li>
+      <li class = 'nav-item'>
+        <a href = "{% url 'services:list' %}" class = 'btn-up{% if view_name == "services:list" %} btn-active{% endif %}'>Услуги</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li class = 'nav-item'>
+        <a href = "{% url 'accounts:profile' %}" class = 'btn-up{% if view_name == "accounts:profile" %} btn-active{% endif %}'>
+          {{ user }}
+        </a>
+      </li>
+      <li class = 'nav-item'>
+        <a href = '{% url "appointments:list" %}' class = 'btn-up{% if view_name == "appointments:list" %} btn-active{% endif %}'>Мои записи</a>
+      </li>
+      <li class = 'nav-item'>
+        <a href = '{% url "visits:list" %}' class = 'btn-up{% if view_name == "visits:list" %} btn-active{% endif %}'>Мои посещения</a>
+      </li>
+      <li class = 'nav-item'>
+        <a href = "{% url 'favourites:list' %}" class = 'btn-up{% if view_name == "favourites:list" %} btn-active{% endif %}'>Избранное</a>
+      </li>
+      <li class = 'nav-item'>
+        <form action = "{% url 'accounts:logout' %}" method = 'post'>
+          {% csrf_token %}
+          {% button_submit 'Выйти' 'btn-border' %}
+        </form>
+      </li>
+      {% else %}
+      <li class = 'nav-item'>
+        <a href = "{% url 'accounts:login' %}" class = 'btn-border'>Войти</a>
+      </li>
+      <li class = 'nav-item'>
+        <a href = "{% url 'accounts:registration' %}" class = 'btn-border'>Регистрация</a>
+      </li>
+      {% endif %}
+      <li class = 'nav-item'>
+        <text class = 'fs-1'>Массажный салон <i>"М@сс@ж"</i></text>
+      </li>
+      {% endwith %}
+  </ul>
+</nav>

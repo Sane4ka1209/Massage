@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Выбор даты{% endblock %}
+
+{% block content %}
+<h1>Выберите дату</h1>
+<a href="{% url 'appointments:select_services' %}" class="btn-light-shadow">Назад</a>
+<br><br>
+{% info_tag 'Массажист' appointment.get_master %}
+{% info_tag 'Общая продолжительность, мин' appointment.get_all_duration %}
+{% info_tag 'Общая стоимость, Р' appointment.get_all_price %}
+<h2>Выбранные услуги</h2>
+{% table %}
+    {% thead 'Название' 'Цена, Р' 'Продолжительность, мин' 'Описание' %}
+    <tbody>
+        {% for i in appointment.get_services_with_duration %}
+        {% tr i.service.name i.service.price i.time i.service.description %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% stack %}
+    {% for date in dates %}
+        {% stack_el %}
+        <form method = 'post' action = "{% url 'appointments:selected_date' date %}">
+            {% csrf_token %}
+            <input type = 'submit' value = '{{ date }}' class = 'btn-press'>
+        </form>
+        {% endstack_el %}
+    {% endfor %}
+{% endstack %}
+{% endblock %}

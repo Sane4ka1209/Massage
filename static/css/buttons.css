@@ -1,0 +1,92 @@
+.btn-up.btn-active {
+    background: #003038;
+}
+
+.btn-press {
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    background: #0B63F6;
+    box-shadow: 0 5px 0 #003CC5;
+    padding: 10px;
+    margin: 5px;
+}
+
+.btn-press:hover {
+    background: #003CC5;
+    box-shadow: none;
+    position: relative;
+    top: 5px;
+    color: white;
+}
+
+.btn-border {
+    border-radius: 10px;
+    color: black;
+    transition: .2s linear;
+    background: #859400;
+    padding: 10px;
+    margin: 5px;
+    text-decoration: none;
+    border-color: transparent;
+}
+
+.btn-border:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #1e5f1e;
+    color: rgb(0, 0, 0);
+}
+
+.btn-up {
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0b8cf6;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    margin: 5px;
+    border-color: transparent;
+    text-decoration: none;
+}
+
+.btn-up:hover {
+    box-shadow: 2px 2px white, 4px 4px #63fc6b;
+    top: -4px;
+    left: -4px;
+    color: white;
+}
+
+.btn-dark {
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #0B63F6;
+    padding: 10px;
+    border-color: transparent;
+    margin: 5px;
+    text-decoration: none;
+}
+
+.btn-dark:hover {
+   box-shadow: #003CC5 0 0px 0px 40px inset;
+   color: white;
+}
+
+.btn-light-shadow {
+    box-shadow: 0 5px 15px 0 rgba(11, 99, 246, 1);
+    transition: 0.5s;
+    padding: 10px;
+    margin: 5px;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    background-color: #f83c3c;
+}
+  
+.btn-light-shadow:hover {
+    transform: translate(0,-3px);
+    color: white;
+    box-shadow: 0 20px 40px 0 rgba(11, 99, 246, 1);
+}

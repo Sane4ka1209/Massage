@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Избранное{% endblock %}
+
+{% block content %}
+<h1>Избранное</h1>
+{% table %}
+    {% thead 'ФИО' 'Работает ли сейчас' '' %}
+    <tbody>
+        {% for master in object_list %}
+        {% tr %}
+            {% td master.name %}
+            {% td master.is_works|bol:'Да|Нет' %}
+            {% td %}
+            <form method="post" action="{% url 'favourites:remove' master.name %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                {% button_submit 'Удалить из избранного' 'btn-light-shadow' %}
+            </form>
+            {% endtd %}
+        {% endtr %}
+        {% empty %}
+            {% error_tag 'На данный момент у вас нет избранного' %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

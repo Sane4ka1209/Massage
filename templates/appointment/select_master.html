@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Выбор массажиста{% endblock %}
+
+{% block content %}
+<h1>Выберите массажиста</h1>
+{% table %}
+    {% thead 'ФИО' 'В избранном' '' %}
+    <tbody>
+        {% for master in object_list %}
+            {% tr %}
+                {% td master %}
+                {% if master in favourites %}
+                    {% td 'Да' %}
+                {% else %}
+                    {% td 'Нет' %}
+                {% endif %}
+                {% td %}
+                    <form method="post" action="{% url 'appointments:selected_master' master.name %}">
+                        {% csrf_token %}
+                        {% button_submit 'Выбрать' 'btn-press' %}
+                    </form>
+                {% endtd %}
+            {% endtr %}
+        {% empty %}
+        {% error_tag 'К сожалению, на данный момент нет доступных парикмахеров' %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

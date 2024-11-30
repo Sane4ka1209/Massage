@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+<h1>Посещение</h1>
+{% info_tag 'Массажист' object.master %}
+{% info_tag 'Общая стоимость, Р' object.all_price %}
+{% info_tag 'Дата и время начала' object.start_time|format:'%d %m %Y / %H:%M' %}
+{% info_tag 'Дата и время завершения' object.end_time|format:'%d %m %Y / %H:%M' %}
+{% if not is_favourite %}
+<form method="post" action="{% url 'favourites:add' object.master.name %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    {% button_submit 'Добавить парикмахера в избранное' 'btn-light-shadow' %}
+</form>
+{% endif %}
+<h2>Выбранные услуги</h2>
+{% table %}
+    {% thead 'Название' 'Цена, Р' 'Описание' %}
+    <tbody>
+        {% for service in object.services.all %}
+        {% tr service.name service.price service.description %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}

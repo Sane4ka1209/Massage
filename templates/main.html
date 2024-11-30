@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load custom_tags %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<br>
+<a href="{% url 'appointments:select_master' %}" class="btn-light-shadow">Записаться</a>
+<br>
+<br>
+<h2>График работы</h2>
+{% table %}
+    {% thead '' 'Рабочий день' 'Обед' %}
+    <tbody>
+        {% for day in schedule %}
+        {% tr %}
+            {% th weekdays|index:forloop.counter0 %}
+            {% if day.day %}
+                {% td %}{{ day.day|index:0 }} - {{ day.day|index:1 }}{% endtd %}
+                {% if day.lunch_break %}
+                    {% td %}{{ day.lunch_break|index:0 }} - {{ day.lunch_break|index:1 }}{% endtd %}
+                {% else %}
+                {% td 'Без обеда' %}
+                {% endif %}
+            {% else %}
+                {% td 'Не работаем' %}
+                {% td %}{% endtd %}
+            {% endif %}
+        {% endtr %}
+        {% endfor %}
+    </tbody>
+{% endtable %}
+{% endblock %}
